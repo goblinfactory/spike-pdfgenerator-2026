@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PDF Files</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 24px; }
+      h1 { margin-bottom: 8px; }
+      .muted { color: #666; margin-bottom: 16px; }
+      ul { padding-left: 18px; }
+      li { margin: 6px 0; }
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .actions { margin-top: 16px; }
+      .actions a { margin-right: 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>Generated PDFs</h1>
+    <div class="muted">Files saved to /data</div>
+
+    <ul id="fileList"></ul>
+    <div id="emptyState" class="muted" style="display:none;">No PDFs yet.</div>
+
+    <div class="actions">
+      <a href="/test.html">Create test invoice</a>
+      <button id="refreshBtn" type="button">Refresh</button>
+    </div>
+
+    <script>
+      async function loadFiles() {
+        const list = document.getElementById('fileList');
+        const empty = document.getElementById('emptyState');
+        list.innerHTML = '';
+        empty.style.display = 'none';
+
+        const res = await fetch('/api/files');
+        const files = await res.json();
+
+        if (!files.length) {
+          empty.style.display = 'block';
+          return;
+        }
+
+        for (const name of files) {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = `/data/${encodeURIComponent(name)}`;
+          link.textContent = name;
+          link.target = '_blank';
+          li.appendChild(link);
+          list.appendChild(li);
+        }
+      }
+
+      document.getElementById('refreshBtn').addEventListener('click', loadFiles);
+      loadFiles();
+    </script>
+  </body>
+</html>

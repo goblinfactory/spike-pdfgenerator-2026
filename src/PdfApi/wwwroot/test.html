@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Create Test Invoice</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 24px; max-width: 720px; }
+      h1 { margin-bottom: 8px; }
+      label { display: block; margin-top: 12px; font-weight: bold; }
+      input, textarea { width: 100%; padding: 8px; margin-top: 4px; }
+      button { margin-top: 16px; padding: 10px 16px; }
+      .status { margin-top: 12px; color: #555; }
+      a { text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <h1>Create Test Invoice</h1>
+    <div class="status" id="status"></div>
+
+    <label>Invoice Number</label>
+    <input id="InvoiceNumber" value="INV-1001" />
+
+    <label>Date</label>
+    <input id="Date" value="2026-01-15" />
+
+    <label>Customer Name</label>
+    <input id="CustomerName" value="Acme Corp" />
+
+    <label>Reference</label>
+    <input id="Reference" value="PO-7788" />
+
+    <label>Subtotal</label>
+    <input id="Subtotal" value="100.00" />
+
+    <label>Tax</label>
+    <input id="Tax" value="15.00" />
+
+    <label>Total</label>
+    <input id="Total" value="115.00" />
+
+    <button id="createBtn" type="button">Create</button>
+    <a href="/">Back to files</a>
+
+    <script>
+      async function createInvoice() {
+        const payload = {
+          InvoiceNumber: document.getElementById('InvoiceNumber').value,
+          Date: document.getElementById('Date').value,
+          CustomerName: document.getElementById('CustomerName').value,
+          Reference: document.getElementById('Reference').value,
+          Subtotal: document.getElementById('Subtotal').value,
+          Tax: document.getElementById('Tax').value,
+          Total: document.getElementById('Total').value
+        };
+
+        const status = document.getElementById('status');
+        status.textContent = 'Creating PDF...';
+
+        const res = await fetch('/create/pdf/templates/invoice', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          status.textContent = `Failed: ${res.status}`;
+          return;
+        }
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+        status.textContent = 'Created. Check /data list.';
+      }
+
+      document.getElementById('createBtn').addEventListener('click', createInvoice);
+    </script>
+  </body>
+</html>

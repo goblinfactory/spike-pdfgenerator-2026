@@ -1,0 +1,28 @@
+### Create invoice PDF
+
+POST http://localhost:8080/create/pdf/templates/invoice
+Content-Type: application/json
+
+{
+  "InvoiceNumber": "INV-1001",
+  "Date": "2026-01-15",
+  "CustomerName": "Acme Corp",
+  "Reference": "PO-7788",
+  "Subtotal": "100.00",
+  "Tax": "15.00",
+  "Total": "115.00"
+}
+
+### Create delivery note PDF
+
+POST http://localhost:8080/create/pdf/templates/delivery-note
+Content-Type: application/json
+
+{
+  "DeliveryNoteNumber": "DN-2002",
+  "Date": "2026-01-15",
+  "CustomerName": "Acme Corp",
+  "Reference": "PO-7788",
+  "DeliveryAddress": "42 Example Street, Cape Town",
+  "Notes": "Leave at reception"
+}

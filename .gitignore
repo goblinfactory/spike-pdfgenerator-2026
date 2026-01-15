@@ -137,3 +137,10 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# .NET build outputs
+**/bin/
+**/obj/
+
+# Generated PDFs
+data/
