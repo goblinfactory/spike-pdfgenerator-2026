@@ -1,6 +1,10 @@
 # Playwright .NET PDF Spike
 
+Windows container notes: see `README-windows.md`.
+
 Minimal .NET 8 Web API that uses Playwright .NET (Chromium headless) to render HTML templates to PDF, all inside a single Docker container.
+The interesting part of this project is the dockerfile to install powershell and playwright.
+
 
 ## Prereqs
 - Docker
