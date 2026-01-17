@@ -5,8 +5,8 @@
 This repo contains two .NET 8 Web API implementations for generating PDFs so you can compare approaches side by side.
 
 ## Projects
-- `approaches/pdfApi/src` — Playwright/Chromium HTML-to-PDF pipeline. Uses HTML templates and browser rendering.
-- `approaches/pdfApiAcroForm/src` — AcroForm template filling. Uses prebuilt PDF templates with form fields, no browser.
+- [/pdfApi](./pdfApi/) — Playwright/Chromium HTML-to-PDF pipeline. Uses HTML templates and browser rendering.
+- [/pdfApiAcroForm](./pdfApiAcroForm/) — AcroForm template filling. Uses prebuilt PDF templates with form fields, no browser.
 
 ## Why two projects
 - Compare browser-based rendering vs. form-field filling.
