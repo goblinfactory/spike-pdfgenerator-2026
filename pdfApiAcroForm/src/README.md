@@ -1,7 +1,5 @@
 # PdfApiAcroForm
 
-> **⚠️ DISCLAIMER:** This is a proof-of-concept spike project for evaluating PDF generation approaches. Not intended for production use. No warranty or security guarantees are provided.
-
 AcroForm-based PDF generation using .NET 8 and PdfSharpCore. This project fills form fields in prebuilt PDF templates without using a browser.
 
 ## Prereqs

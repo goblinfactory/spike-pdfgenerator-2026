@@ -1,6 +1,6 @@
 # PDF Generation Spike
 
-> **⚠️ DISCLAIMER:** This is a proof-of-concept spike project for evaluating PDF generation approaches. Not intended for production use. No warranty or security guarantees are provided.
+> **⚠️ DISCLAIMER:** This is a proof-of-concept spike project for evaluating PDF generation approaches. Not intended for production use.
 
 This repo contains two .NET 8 Web API implementations for generating PDFs so you can compare approaches side by side.
 
