@@ -1,5 +1,7 @@
 # Playwright .NET PDF Spike
 
+> **⚠️ DISCLAIMER:** This is a proof-of-concept spike project for evaluating PDF generation approaches. Not intended for production use. No warranty or security guarantees are provided.
+
 Windows container notes: see `README-windows.md`.
 
 Minimal .NET 8 Web API that uses Playwright .NET (Chromium headless) to render HTML templates to PDF, all inside a single Docker container.
@@ -25,9 +27,10 @@ docker compose up --build
 ```
 
 ## Build and Run (Local)
+
 ```bash
-dotnet build src/PdfApi/PdfApi.csproj
-dotnet run --project src/PdfApi/PdfApi.csproj
+dotnet build approaches/pdfApi/src/PdfApi.csproj
+dotnet run --project approaches/pdfApi/src/PdfApi.csproj
 ```
 
 ## Test the API
@@ -57,5 +60,7 @@ curl -X POST "http://localhost:8080/create/pdf/templates/invoice" \
 To test that `/app/playwright.ps1` exists in the publish output, run the following from the repo root:
 
 ```bash
-dotnet publish -c Release -o ./app/publish --project src/PdfApi/PdfApi.csproj
+dotnet publish -c Release -o ./app/publish --project approaches/pdfApi/src/PdfApi.csproj
 ```
+
+Then manually check in the publish directory.
