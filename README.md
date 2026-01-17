@@ -1,61 +1,18 @@
-# Playwright .NET PDF Spike
+# PDF Generation Spike
 
-Windows container notes: see `README-windows.md`.
+> **⚠️ DISCLAIMER:** This is a proof-of-concept spike project for evaluating PDF generation approaches. Not intended for production use. No warranty or security guarantees are provided.
 
-Minimal .NET 8 Web API that uses Playwright .NET (Chromium headless) to render HTML templates to PDF, all inside a single Docker container.
-The interesting part of this project is the dockerfile to install powershell and playwright.
+This repo contains two .NET 8 Web API implementations for generating PDFs so you can compare approaches side by side.
 
+## Projects
+- [/pdfApi](./pdfApi/) — Playwright/Chromium HTML-to-PDF pipeline. Uses HTML templates and browser rendering.
+- [/pdfApiAcroForm](./pdfApiAcroForm/) — AcroForm template filling. Uses prebuilt PDF templates with form fields, no browser.
 
-## Prereqs
-- Docker
-- .NET 8 SDK (for local build/run)
+## Why two projects
+- Compare browser-based rendering vs. form-field filling.
+- Evaluate Docker image size, dependencies, and reliability tradeoffs.
+- Keep the API shape consistent while swapping the PDF engine.
 
-## Project Layout
-- `src/PdfApi` — Web API project
-- `src/PdfApi/templates` — HTML templates
-- `Dockerfile` — single-container build
-
-## Build and Run (Docker)
-```bash
-docker build -t pdfapi .
-docker run --rm -p 8080:8080 pdfapi
-```
-
-## Build and Run (Docker Compose)
-```bash
-docker compose up --build
-```
-
-## Build and Run (Local)
-```bash
-dotnet build src/PdfApi/PdfApi.csproj
-dotnet run --project src/PdfApi/PdfApi.csproj
-```
-
-## Test the API
-```bash
-curl -X POST "http://localhost:8080/create/pdf/templates/invoice" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "InvoiceNumber":"INV-1001",
-    "Date":"2026-01-15",
-    "CustomerName":"Acme Corp",
-    "Reference":"PO-7788",
-    "Subtotal":"100.00",
-    "Tax":"15.00",
-    "Total":"115.00"
-  }' \
-  --output invoice.pdf
-```
-
-## Notes on Playwright/Chromium
-- Playwright .NET is installed via NuGet.
-- Chromium is installed during the Docker build using the Playwright CLI:
-  `pwsh -File /app/playwright.ps1 install --with-deps chromium`
-- Templates are loaded from `/templates` inside the container.
-
-## Testing that Playwright is present
-
-To test that `/app/playwright.ps1` exists in the publish output, run the following from the repo root:
-
-dotnet publish -c Release -o ./app/publish --project src/PdfApi/PdfApi.csproj
+## Start here
+- Playwright version: `approaches/pdfApi/src/README.md`
+- AcroForm version: `approaches/pdfApiAcroForm/src/README.md`

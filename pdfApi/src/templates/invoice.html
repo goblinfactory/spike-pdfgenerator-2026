@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Invoice {{InvoiceNumber}}</title>
+    <style>
+      :root {
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --border-subtle: #f3f4f6;
+        --surface: #ffffff;
+        --accent: #4f46e5;
+        --badge-bg: #e0e7ff;
+        --badge-text: #3730a3;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 32px;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: var(--text-primary);
+        background: #f9fafb;
+      }
+
+      .page {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: var(--surface);
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0 0 6px;
+      }
+
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .badge {
+        align-self: flex-start;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--badge-bg);
+        color: var(--badge-text);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 24px;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .meta-label {
+        color: var(--text-secondary);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin: 0 0 6px;
+      }
+
+      .meta-value {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .summary {
+        margin-top: 28px;
+        border-radius: 12px;
+        border: 1px solid var(--border-subtle);
+        overflow: hidden;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 18px;
+        font-size: 14px;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .summary-row:last-child {
+        border-bottom: none;
+      }
+
+      .summary-label {
+        color: var(--text-secondary);
+      }
+
+      .summary-total {
+        background: #eef2ff;
+        color: var(--text-primary);
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .total-due {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 28px;
+        padding: 20px 24px;
+        border-radius: 12px;
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .total-due-label {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin: 0;
+        opacity: 0.85;
+      }
+
+      .total-due-value {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+
+      @media print {
+        body {
+          background: #ffffff;
+          padding: 0;
+        }
+
+        .card {
+          box-shadow: none;
+          border-radius: 0;
+        }
+
+        .total-due {
+          background: #ffffff;
+          color: var(--text-primary);
+          border: 1px solid var(--border-subtle);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="card">
+        <div class="header">
+          <div>
+            <h1 class="title">Invoice</h1>
+            <p class="subtitle">Invoice #{{InvoiceNumber}} • Date {{Date}}</p>
+          </div>
+          <div class="badge">Paid</div>
+        </div>
+
+        <div class="meta-grid">
+          <div>
+            <p class="meta-label">Customer</p>
+            <p class="meta-value">{{CustomerName}}</p>
+          </div>
+          <div>
+            <p class="meta-label">Reference</p>
+            <p class="meta-value">{{Reference}}</p>
+          </div>
+        </div>
+
+        <div class="summary">
+          <div class="summary-row">
+            <div class="summary-label">Subtotal</div>
+            <div>{{Subtotal}}</div>
+          </div>
+          <div class="summary-row">
+            <div class="summary-label">Tax</div>
+            <div>{{Tax}}</div>
+          </div>
+          <div class="summary-row summary-total">
+            <div>Total</div>
+            <div>{{Total}}</div>
+          </div>
+        </div>
+
+        <div class="total-due">
+          <p class="total-due-label">Total Due</p>
+          <p class="total-due-value">{{Total}}</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

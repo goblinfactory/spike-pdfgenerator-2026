@@ -1,10 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0-bookworm-slim AS build
 WORKDIR /src
 
-COPY src/PdfApi/PdfApi.csproj /src/PdfApi/
+COPY src/PdfApi.csproj /src/PdfApi/
 RUN dotnet restore /src/PdfApi/PdfApi.csproj
 
-COPY src/PdfApi/ /src/PdfApi/
+COPY src/ /src/PdfApi/
 WORKDIR /src/PdfApi
 RUN dotnet publish -c Release -o /app/publish
 
@@ -15,7 +15,7 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 ENV ASPNETCORE_URLS=http://+:8080
 
 COPY --from=build /app/publish/ /app/
-COPY src/PdfApi/templates /templates
+COPY src/templates /templates
 RUN mkdir -p /data
 
 RUN test -f /app/playwright.ps1
